@@ -96,7 +96,7 @@ void FUN_001be708(void)
     StopVag();
 }
 
-INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadVag1__FPv);
+INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadVag1);
 
 int FPauseForVag()
 {

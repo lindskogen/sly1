@@ -251,7 +251,7 @@ void StartupGame();
 
 // LevelLoadData * search_level_by_load_data(LevelLoadData *search_level);
 
-LevelLoadData *search_level_by_id(int search_id);
+LevelLoadData *search_level_by_id(int search_id) __asm__("search_level_by_id");
 
 /**
  * @brief Gets the friendly name of a level from its world ID.
@@ -264,7 +264,7 @@ char *PchzFriendlyFromWid(int wid);
 
 // WORLDLEVEL FFindLevel(LevelLoadData *level)
 
-uint get_level_completion_by_id(int level_id);
+uint get_level_completion_by_id(int level_id) __asm__("get_level_completion_by_id");
 
 /**
  * @brief Tally the completion of a world.

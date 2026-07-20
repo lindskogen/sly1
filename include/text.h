@@ -156,6 +156,6 @@ extern "C"
 
 void UpperizePchz(char *pchz);
 
-char *strcpy1(char *pchzDst, char *pchzSrc);
+char *strcpy1(char *pchzDst, char *pchzSrc) __asm__("strcpy1");
 
 #endif // TEXT_H

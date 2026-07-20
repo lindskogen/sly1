@@ -94,6 +94,6 @@ void GetRwacPan(RWAC *prwac, float *pradPan);
 
 void GetRwacTilt(RWAC *prwac, float *pradTilt);
 
-void FUN_001a93c8(RWM *prwm);
+void FUN_001a93c8(RWM *prwm) __asm__("FUN_001a93c8");
 
 #endif // RWM_H

@@ -157,6 +157,6 @@ private:
     enum JV m_jv; // Vertical text justification;
 };
 
-void open_close_binoc(BINOC *pbinoc, int state);
+void open_close_binoc(BINOC *pbinoc, int state) __asm__("open_close_binoc");
 
 #endif /* BINOC_H */

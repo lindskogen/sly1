@@ -96,6 +96,6 @@ int FCanPuffcAttack(PUFFC *ppuffc);
 
 void PostPuffbLoad(PUFFB *ppuffb);
 
-void FUN_001973d8(void *p);
+void FUN_001973d8(void *p) __asm__("FUN_001973d8");
 
 #endif // PUFFER_H

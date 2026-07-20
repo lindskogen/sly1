@@ -518,9 +518,9 @@ void FUN_001ae7f8(CTR *pctr, BLOTS blots)
 
 INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001ae820);
 
-INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea08__Fv);
+INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea08);
 
-INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea70__Fii);
+INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea70);
 
 JUNK_WORD(0xE48C0000);
 JUNK_WORD(0xE48C0008);

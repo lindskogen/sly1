@@ -29,6 +29,6 @@ void StartupMpeg();
 
 extern CMpeg g_mpeg;
 
-void FUN_0018f0e8(CMpeg *pmpeg, void *pv);
+void FUN_0018f0e8(CMpeg *pmpeg, void *pv) __asm__("FUN_0018f0e8");
 
 #endif // MPEG_H

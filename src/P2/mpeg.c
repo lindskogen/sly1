@@ -249,7 +249,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/mpeg", BuildMpegGifs__FP2QWP11sceIpuRGB32iiiii)
 
 INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018ef78);
 
-INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018f0e8__FP5CMpegPv);
+INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018f0e8);
 
 void CMpeg::ExecuteOids()
 {

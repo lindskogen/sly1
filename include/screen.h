@@ -387,8 +387,8 @@ void UpdateAttract(ATTRACT *pattract);
 
 void DrawLineScreen(uint x1, uint y1, uint z1, uint x2, uint y2, uint z2, RGBA *rgba, int fDepthTest);
 
-char FUN_001aea08(void);
+char FUN_001aea08(void) __asm__("FUN_001aea08");
 
-void FUN_001aea70(int, int);
+void FUN_001aea70(int, int) __asm__("FUN_001aea70");
 
 #endif // SCREEN_H
