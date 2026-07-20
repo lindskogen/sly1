@@ -20,9 +20,12 @@ INCLUDE_ASM("asm/nonmatchings/P2/suv", UpdateSuvBalance__FP3SUV);
 float DsGetTrackRelative(float track, float relative, float range)
 {
     relative -= range;
-    if (track * 0.5f < relative) {
+    if (track * 0.5f < relative)
+    {
         relative -= track;
-    } else if (relative < track * (-0.5f)) {
+    }
+    else if (relative < track * (-0.5f))
+    {
         relative += track;
     }
     return relative;

@@ -7,6 +7,7 @@
 #include "common.h"
 
 struct CG;
+struct PATHZONE;
 struct VECTOR;
 
 int CposFindPath(CG *pcg, VECTOR *pvec0, VECTOR *pvec1, int n, VECTOR *pvec2);

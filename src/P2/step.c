@@ -14,7 +14,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/step", FUN_001c4618);
 
 void FUN_001c4790(void *p1, SO *pso, BSP *pbsp, void *p4)
 {
-
     if (STRUCT_OFFSET(p4, 0x50, int) == 0)
         return;
 
@@ -63,8 +62,6 @@ CT CtTorqueStep(STEP *pstep)
 {
     return CT_Locked;
 }
-
-void PropagateSoForce(SO *psoRoot, GRFSG grfsg, XP *pxp, int ixpd, DZ *pdz, FX *afx);
 
 void PropagateStepForce(STEP *pstep, GRFSG grfsg, XP *pxp, int ixpd, DZ *pdz, FX *afx)
 {

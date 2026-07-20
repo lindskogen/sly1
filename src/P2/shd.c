@@ -4,8 +4,6 @@
 
 extern GRFZON g_grfzonShaders;
 extern byte *g_pbBulkData;
-extern GSB D_002626D8;
-extern int D_002626CC;
 
 INCLUDE_ASM("asm/nonmatchings/P2/shd", Tex0FromTexIframeCtk__FP3TEXi3CTK);
 

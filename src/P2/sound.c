@@ -25,12 +25,14 @@ struct MVG
 
 extern float D_00274838[10][4]; // temp
 extern int D_00274720;
+extern u_int D_00274728;
+extern u_int D_0027472C;
+extern int D_00274730;
+extern u_int D_0027473C;
+extern u_int D_00274744;
 
 void UnloadMusic()
 {
-    extern u_int D_0027473C;
-    extern u_int D_00274728;
-
     if (D_0027473C != 0)
     {
         if (D_00274728 != 0)
@@ -76,13 +78,11 @@ int FContinuousSound(SFXID sfxid)
     return D_006047D0[sfxid];
 }
 
-extern int D_00274730;
 void FUN_001BE5D8(void)
 {
     D_00274730 = 0;
 }
 
-extern u_int D_00274744;
 int SetVagUnpaused()
 {
     return D_00274744;
@@ -90,18 +90,14 @@ int SetVagUnpaused()
 
 INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadVag__FPc2FK);
 
-extern u_int D_00274744;
 void FUN_001be708(void)
 {
     D_00274744 = 0;
     StopVag();
 }
 
-INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadVag1);
+INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadVag1__FPv);
 
-extern u_int D_00274744;
-extern u_int D_0027472C;
-extern int D_00274730;
 int FPauseForVag()
 {
     if (D_00274744 != 0)
@@ -158,7 +154,6 @@ void FUN_001be8f8(ALO *palo, AMB **ppamb, float sStart, float sFull)
     }
 }
 
-extern u_int D_0027472C;
 int FVagPlaying()
 {
     return D_0027472C != 0;
@@ -184,7 +179,6 @@ void StopVag()
     }
 }
 
-extern u_int D_0027472C;
 void PauseVag()
 {
     u_int handle = D_0027472C;
@@ -194,7 +188,6 @@ void PauseVag()
     }
 }
 
-extern u_int D_0027472C;
 void ContinueVag()
 {
     u_int handle = D_0027472C;
@@ -204,8 +197,6 @@ void ContinueVag()
     }
 }
 
-extern int D_00274720;
-extern u_int D_00274728;
 void KillMusic()
 {
     if (D_00274720 == 3)
@@ -216,9 +207,8 @@ void KillMusic()
     }
 }
 
-extern int D_00274720;
 extern int D_00274724;
-extern u_int D_0027473C;
+
 void PreloadMusidSongComplete(u_int handle, u_long unused)
 {
     D_0027473C = handle;
@@ -236,15 +226,8 @@ void PreloadMusidSongComplete(u_int handle, u_long unused)
 
 INCLUDE_ASM("asm/nonmatchings/P2/sound", PreloadMusidSong__F5MUSID);
 
-enum MUSID {};
-void PreloadMusidSong(MUSID musid);
-
 void StartMusidSong(MUSID musid)
 {
-    extern int D_00274720;
-    extern u_int D_00274728;
-    extern u_int D_0027473C;
-
     PreloadMusidSong(musid);
     if (musid != 0)
     {
@@ -274,13 +257,11 @@ void ContinueMusic()
     SetMvgkRvol(2, MVGK_Music, 1.0f);
 }
 
-extern u_int D_00274728;
 void SfxhMusicUnknown1()
 {
     snd_PauseSound(D_00274728);
 }
 
-extern u_int D_00274728;
 void SfxhMusicUnknown2()
 {
     snd_ContinueSound(D_00274728);
@@ -333,7 +314,6 @@ void UnsetExcitement(EXC *pexc)
     }
 }
 
-extern int D_00274734;
 void SetIexcCurHigh(EXC *pexc);
 
 void UnsetExcitementHyst(EXC *pexc)
@@ -628,7 +608,6 @@ void FUN_001C0B08(SW *psw, LM *plm)
 INCLUDE_ASM("asm/nonmatchings/P2/sound", StartSwIntermittentSounds__FP2SW);
 
 // TODO: Verify signature.
-extern u_int D_00274728;
 void SetAMRegister(int n, int bReg)
 {
     if (bReg != D_006053E0[n])
@@ -643,7 +622,6 @@ int GetAMRegister(int reg)
     return D_006053E0[reg];
 }
 
-extern u_int D_00274728;
 void UpdateAMRegister(int reg, int value)
 {
     D_006053E0[reg] = snd_GetMIDIRegister(D_00274728, reg);
@@ -659,7 +637,6 @@ void FUN_001c0cb0()
 
 INCLUDE_ASM("asm/nonmatchings/P2/sound", HsNextFootFall__Fv);
 
-extern int D_002748EC;
 int HsNextFootFall();
 
 void NextSneakyFootstep()

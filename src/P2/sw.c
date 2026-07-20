@@ -50,27 +50,7 @@ void LoadBulkDataFromBrx(CBinaryInputStream *pbis)
     }
 }
 
-static inline VU_VECTOR VuVectorXyz(float x, float y, float z)
-{
-    VU_VECTOR v;
-    qword tmp;
-    asm("mfc1 %0, %2\n\tmfc1 %1, %3\n\tpextlw %0, %1, %0\n\tmfc1 %1, %4\n\tpcpyld %0, %1, %0"
-        : "=r"(v.data), "=r"(tmp)
-        : "f"(x), "f"(y), "f"(z));
-    return v;
-}
-
-void SetSwGravity(SW *psw, float z)
-{
-    union
-    {
-        qword q;
-        float af[4];
-    } u;
-
-    u.q = VuVectorXyz(0.0f, 0.0f, z).data;
-    STRUCT_OFFSET(psw, 0x1EE0, qword) = u.q; // vecGravity = (0, 0, z, junk)
-}
+INCLUDE_ASM("asm/nonmatchings/P2/sw", SetSwGravity__FP2SWf);
 
 void FUN_001dbac0(SW *psw, int reg, int value)
 {
@@ -195,12 +175,6 @@ void FreeSwStsoList(SW *psw, STSO *pstsoFirst)
     }
 }
 
-struct PSL
-{
-    int cplo;
-    LO **aplo;
-} __attribute__((packed));
-
 INCLUDE_ASM("asm/nonmatchings/P2/sw", AddSwProxySource__FP2SWP2LOi);
 #ifdef SKIP_ASM
 void AddSwProxySource(SW *psw, LO *ploProxySource, int cploClone)
@@ -316,8 +290,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/sw", FClipLineHomogeneous__FP7VECTOR4);
 
 INCLUDE_ASM("asm/nonmatchings/P2/sw", DrawLineWorld__FP6VECTORT0G4RGBAP2CMi);
 
-void DrawLineWorld(VECTOR *ppos1, VECTOR *ppos2, RGBA rgba, CM *pcm, int fDepthTest);
-
 INCLUDE_ASM("asm/nonmatchings/P2/sw", DrawAxesWorld__FP6VECTORP7MATRIX3fP2CMi);
 #ifdef SKIP_ASM
 void DrawAxesWorld(VECTOR *ppos, MATRIX3 *pmat, float sScale, CM *pcm, int fDepthTest)
@@ -380,11 +352,9 @@ int FLevelSwTertiary(SW *psw, WID wid)
 
 INCLUDE_ASM("asm/nonmatchings/P2/sw", FUN_001dd710);
 
-uint GrflsLevelCompletionFromWid(int wid) __asm__("get_level_completion_by_id");
-
 int FUN_001dd758(SW *psw, int wid)
 {
-    uint grfls = GrflsLevelCompletionFromWid(wid);
+    uint grfls = get_level_completion_by_id(wid);
     uint f = 0;
     uint mask = grfls & 3;
 
@@ -398,11 +368,9 @@ int FUN_001dd758(SW *psw, int wid)
     return f;
 }
 
-uint GrflsLevelCompletionFromWid(int wid) __asm__("get_level_completion_by_id");
-
 int FUN_001dd7a0(SW *psw, int wid)
 {
-    uint grfls = GrflsLevelCompletionFromWid(wid);
+    uint grfls = get_level_completion_by_id(wid);
     int f = 0;
     uint mask = grfls & 7;
 
@@ -553,8 +521,6 @@ void FUN_001ddb58(SW *psw)
         D_002721D0.pvtblot->pfnShowBlot(&D_002721D0);
     }
 }
-
-extern BLOT D_002721D0;
 
 void FUN_001ddbb8(SW *psw)
 {

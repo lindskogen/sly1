@@ -59,8 +59,6 @@ void PostSmartguardLoad(SMARTGUARD *psmartguard)
 
 int FFilterSmartguardDetect(SMARTGUARD *psmartguard, SO *pso)
 {
-    int i, c;
-
     if (STRUCT_OFFSET(pso, 0x538, long long) & 0x80000000000LL)
     {
         return 0;
@@ -76,10 +74,10 @@ int FFilterSmartguardDetect(SMARTGUARD *psmartguard, SO *pso)
         return 0;
     }
 
-    c = STRUCT_OFFSET(psmartguard, 0xcd4, int);
+    int c = STRUCT_OFFSET(psmartguard, 0xcd4, int);
     if (c > 0)
     {
-        i = 0;
+        int i = 0;
         do
         {
             if (FFindLoParent(pso, STRUCT_OFFSET(psmartguard, 0xcdc + i * 8, ALO *)))

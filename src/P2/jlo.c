@@ -60,7 +60,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/jlo", UpdateJlo__FP3JLOf);
 
 INCLUDE_ASM("asm/nonmatchings/P2/jlo", JlosNextJlo__FP3JLO);
 
-EXC *PexcSetExcitement(int gexc);
 
 void SetJloJlovol(JLO *pjlo, JLOVOL *pjlovol)
 {

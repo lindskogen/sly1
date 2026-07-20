@@ -60,14 +60,16 @@ void CloneScprize(SCPRIZE *pscprize, SCPRIZE *pscprizeBase)
 PCS PcsFromScprize(SCPRIZE *pscprize)
 {
     PCS pcs = PcsFromSprize((SPRIZE *)pscprize);
-    
-    if (pcs == PCS_Collectible) {
+
+    if (pcs == PCS_Collectible)
+    {
         int ichk = STRUCT_OFFSET(pscprize, 0x5a0, int);
-        if (FGetChkmgrIchk(&g_chkmgr, ichk) != 0) {
+        if (FGetChkmgrIchk(&g_chkmgr, ichk) != 0)
+        {
             pcs = PCS_Collected;
         }
     }
-    
+
     return pcs;
 }
 

@@ -719,9 +719,10 @@ void SetAloLookAtPanFunction(ALO *palo, CLQ *pclq)
     STRUCT_OFFSET(STRUCT_OFFSET(palo, 0x200, void *), 0x50, qword) = STRUCT_OFFSET(pclq, 0x0, qword);
 }
 
+extern CLQ D_00275C40;
+
 void GetAloLookAtPanFunction(ALO *palo, CLQ *pclq)
 {
-    extern CLQ D_00275C40;
     void *pactla = STRUCT_OFFSET(palo, 0x200, void *);
     CLQ *pclqSrc;
 
@@ -758,7 +759,6 @@ void SetAloLookAtTiltFunction(ALO *palo, CLQ *pclq)
     STRUCT_OFFSET(STRUCT_OFFSET(palo, 0x200, void *), 0x70, qword) = STRUCT_OFFSET(pclq, 0x0, qword);
 }
 
-extern qword D_00275C40;
 void GetAloLookAtTiltFunction(ALO *palo, CLQ *pclq)
 {
     void *pactla = STRUCT_OFFSET(palo, 0x200, void *);
@@ -767,7 +767,7 @@ void GetAloLookAtTiltFunction(ALO *palo, CLQ *pclq)
     if (pactla)
         pqSrc = &STRUCT_OFFSET(pactla, 0x70, qword);
     else
-        pqSrc = &D_00275C40;
+        pqSrc = (qword *)&D_00275C40;
 
     *(qword *)pclq = *pqSrc;
 }

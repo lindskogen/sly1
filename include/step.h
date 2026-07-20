@@ -88,6 +88,8 @@ void UpdateStep(STEP *pstep, float dt);
 
 CT CtTorqueStep(STEP *pstep);
 
+void PropagateSoForce(SO *psoRoot, GRFSG grfsg, XP *pxp, int ixpd, DZ *pdz, FX *afx);
+
 void PropagateStepForce(STEP *pstep, GRFSG grfsg, XP *pxp, int ixpd, DZ *pdz, FX *afx);
 
 void RotateStepToMat(STEP *pstep, MATRIX3 *pmat);

@@ -60,7 +60,6 @@ void ClearFrameBuffers()
 
 INCLUDE_ASM("asm/nonmatchings/P2/gs", FadeFramesToBlack__Ff);
 
-extern GSB D_002626D8;
 extern int D_002626D0;
 
 void ResetGsMemory()
@@ -121,9 +120,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/gs", BuildBmpTex0__FP3BMPi);
 INCLUDE_ASM("asm/nonmatchings/P2/gs", BuildBmpGifs__FP3BMPiP4GIFS);
 
 INCLUDE_ASM("asm/nonmatchings/P2/gs", FBuildUploadBitmapGifs__FiP3GSBP4GIFS);
-
-extern int g_cclutUpload;
-extern int g_cbmpUpload;
 
 void UploadBitmaps(GRFZON grfzon, GSB *pgsb)
 {

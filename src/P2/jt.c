@@ -81,11 +81,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/jt", RebuildJtXmg__FP2JTP3ALOfT1P6ACTADJP3XMG);
 
 INCLUDE_ASM("asm/nonmatchings/P2/jt", FMatchJtXmg__FP2JTP3XMGP6ACTADJ);
 
-struct XMG;
-
-int FTurnJtToTarget(JT *pjt);
-void RebuildJtXmg(JT *pjt, ALO *palo, float s, ALO *palo2, ACTADJ *pactadj, XMG *pxmg);
-
 void UpdateJtStand(JT *pjt)
 {
     if (FTurnJtToTarget(pjt) == 0)

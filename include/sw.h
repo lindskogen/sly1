@@ -97,6 +97,12 @@ struct XA
     /* 0x0c */ XA *pxaNextTarget;
 }; // 0x10 bytes.
 
+struct PSL
+{
+    int cplo;
+    LO **aplo;
+} __attribute__((packed));
+
 /**
  * @brief Unknown.
  * @todo Implement the struct and figure out where it belongs.
@@ -179,7 +185,7 @@ void LoadSwFromBrx(SW *psw, CBinaryInputStream *pbis);
 
 int FClipLineHomogeneous(VECTOR4 *apos);
 
-void DrawLineWorld(VECTOR *ppos1, VECTOR *ppos2, RGBA *rgba, CM *pcm, int fDepthTest);
+void DrawLineWorld(VECTOR *ppos1, VECTOR *ppos2, RGBA rgba, CM *pcm, int fDepthTest);
 
 void DrawAxesWorld(VECTOR *ppos, MATRIX3 *pmat, float sScale, CM *pcm, int fDepthTest);
 

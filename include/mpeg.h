@@ -29,9 +29,6 @@ void StartupMpeg();
 
 extern CMpeg g_mpeg;
 
-extern "C" void FUN_0018f0e8(CMpeg *pmpeg, void *pv);
-
-extern "C" int FAccept__10CMpegAudioiPUc(void *pmpega, int cb, uchar *pb);
-
+void FUN_0018f0e8(CMpeg *pmpeg, void *pv);
 
 #endif // MPEG_H

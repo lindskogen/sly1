@@ -22,38 +22,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/tank", PostTankLoad__FP4TANK);
 
 INCLUDE_ASM("asm/nonmatchings/P2/tank", UpdateTank__FP4TANKf);
 
-static inline VU_VECTOR VuVectorXyz(float x, float y, float z)
-{
-    VU_VECTOR v;
-    qword tmp;
-    asm("mfc1 %0, %2\n\tmfc1 %1, %3\n\tpextlw %0, %1, %0\n\tmfc1 %1, %4\n\tpcpyld %0, %1, %0"
-        : "=r"(v.data), "=r"(tmp)
-        : "f"(x), "f"(y), "f"(z));
-    return v;
-}
-
-void FUN_001deb30(TANK *ptank)
-{
-    union
-    {
-        qword q;
-        float af[4];
-    } u;
-    float radPanTarget;
-    float radTiltTarget;
-    float svTarget;
-
-    CalculateAloDrive((ALO *)ptank, NULL, NULL, g_clock.dt,
-                      STRUCT_OFFSET(ptank, 0x638, float),
-                      &radPanTarget, &radTiltTarget, &svTarget);
-
-    STRUCT_OFFSET(ptank, 0x638, float) = radPanTarget;
-    LoadRotateMatrixPanTilt(radPanTarget, radTiltTarget,
-                            (MATRIX3 *)((uint8_t *)ptank + 0x660));
-
-    u.q = VuVectorXyz(-svTarget, 0.0f, 0.0f).data;
-    STRUCT_OFFSET(ptank, 0x640, qword) = u.q;
-}
+INCLUDE_ASM("asm/nonmatchings/P2/tank", FUN_001deb30__FP4TANK);
 
 void UseTankCharm(TANK *ptank)
 {

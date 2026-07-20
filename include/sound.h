@@ -134,6 +134,11 @@ enum MVGK
     MVGK_Max = 0x9
 };
 
+enum MUSID
+{
+    // ...
+};
+
 /**
  * @brief Ambient sound.
  */
@@ -213,6 +218,8 @@ int SetVagUnpaused();
  * @brief Stop the currently playing VAG.
  */
 void StopVag();
+
+void PreloadMusidSong(MUSID musid);
 
 /**
  * @brief Unknown.
@@ -334,6 +341,6 @@ int GetAMRegister(int reg);
  */
 void UpdateAMRegister(int reg, int value);
 
-extern "C" void PreloadVag1(void *pv);
+void PreloadVag1(void *pv);
 
 #endif // SOUND_H

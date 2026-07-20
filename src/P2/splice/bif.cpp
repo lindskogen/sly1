@@ -680,14 +680,4 @@ VECTOR &VECTOR::operator=(VU_VECTOR vuvec)
     return *this;
 }
 
-VU_VECTOR operator*(VU_FLOAT f, VU_VECTOR v)
-{
-    VU_VECTOR r;
-    asm("qmtc2.ni %1, $vf1\n\t"
-        "qmtc2.ni %2, $vf2\n\t"
-        "vmulx.xyzw $vf1, $vf2, $vf1\n\t"
-        "qmfc2.ni %0, $vf1"
-        : "=r"(r.data)
-        : "r"(f.data), "r"(v.data));
-    return r;
-}
+INCLUDE_ASM("asm/nonmatchings/P2/splice/bif", __ml__FG8VU_FLOATG9VU_VECTOR);

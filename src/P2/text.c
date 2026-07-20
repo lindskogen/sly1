@@ -109,7 +109,7 @@ extern "C" char *strcpy(char *pchzDst, const char *pchzSrc)
     return pchzDst;
 }
 
-extern "C" char *strcpy1(char *pchzDst, char *pchzSrc)
+char *strcpy1(char *pchzDst, char *pchzSrc)
 {
     uint dstLength = strlen(pchzDst);
     uint srcLength = strlen(pchzSrc);

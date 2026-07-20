@@ -151,6 +151,10 @@ void CloneDprize(DPRIZE *pdprize, DPRIZE *pdprizeBase);
  */
 void SetDprizeDprizes(DPRIZE *pdprize, DPRIZES dprizes);
 
+void PostDprizeLoad(DPRIZE *pdprize);
+
+void UpdateDprize(DPRIZE *pdprize, float dt);
+
 /**
  * @brief Initializes a coin.
  *

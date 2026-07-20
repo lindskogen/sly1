@@ -45,13 +45,10 @@ void UpdateSbg(SBG *psbg, float dt)
     UpdateStepguard(psbg, dt);
 
     ASEGA *pasega = STRUCT_OFFSET(psbg, 0xC20, ASEGA *);
-    if (pasega != NULL)
+    if (pasega != NULL && STRUCT_OFFSET(pasega, 0x18, float) == 0.0f)
     {
-        if (STRUCT_OFFSET(pasega, 0x18, float) == 0.0f)
-        {
-            RetractAsega(pasega);
-            STRUCT_OFFSET(psbg, 0xC20, ASEGA *) = NULL;
-        }
+        RetractAsega(pasega);
+        STRUCT_OFFSET(psbg, 0xC20, ASEGA *) = NULL;
     }
 }
 

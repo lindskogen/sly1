@@ -75,7 +75,8 @@ void EndSmaTransition(SMA *psma)
 
 void HandleSmaMessage(SMA *psma, MSGID msgid, void *pv)
 {
-    if (msgid == MSGID_asega_limit && (ASEGA*)pv == psma->pasegaCur) {
+    if (msgid == MSGID_asega_limit && (ASEGA *)pv == psma->pasegaCur)
+    {
         EndSmaTransition(psma);
         ChooseSmaTransition(psma);
     }

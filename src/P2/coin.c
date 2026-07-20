@@ -94,8 +94,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/coin", FUN_00147ef8);
 
 extern int D_00270458;
 
-void UpdateDprize(DPRIZE *pdprize, float dt);
-
 void UpdateCoin(COIN *pcoin, float dt)
 {
     UpdateDprize(pcoin, dt);
@@ -213,8 +211,6 @@ void InitKey(KEY *pkey)
 INCLUDE_ASM("asm/nonmatchings/P2/coin", SetKeyDprizes__FP3KEY7DPRIZES);
 
 INCLUDE_ASM("asm/nonmatchings/P2/coin", FUN_00148698);
-
-void PostDprizeLoad(DPRIZE *pdprize);
 
 void FUN_00148718(DPRIZE *pdprize)
 {

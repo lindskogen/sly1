@@ -290,11 +290,8 @@ INCLUDE_ASM("asm/nonmatchings/P2/rog", FChooseRobRoc__FP3ROBP3ROH);
 void TakeRobRoc(ROB *prob, ROH *proh, ROC *proc)
 {
     ROC *procPrev = STRUCT_OFFSET(proh, 0x55c, ROC *);
-    if (procPrev != NULL)
-    {
-        if (procPrev == proc)
-            return;
-    }
+    if (procPrev != NULL && procPrev == proc)
+        return;
 
     ROH *prohPrev = STRUCT_OFFSET(proc, 0x55c, ROH *);
     STRUCT_OFFSET(proh, 0x55c, ROC *) = proc;
@@ -412,10 +409,11 @@ INCLUDE_ASM("asm/nonmatchings/P2/rog", PostRocLoad__FP3ROC);
 
 INCLUDE_ASM("asm/nonmatchings/P2/rog", UpdateRoc__FP3ROCf);
 
+extern SMP D_0026B850;
+
 void PresetRocAccel(ROC *proc, float dt)
 {
     MATRIX3 mat;
-    extern SMP D_0026B850;
 
     PresetSoAccel(proc, dt);
 

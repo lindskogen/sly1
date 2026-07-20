@@ -15,9 +15,9 @@ void OnSoAdd(SO *pso)
     if (pso->paloParent == NULL)
     {
         AddSwAaobrObject(psw, pso);
-        STRUCT_OFFSET(pso, 0x480, OXA *) = PoxaAllocSw(psw, pso);
+        STRUCT_OFFSET(pso, 0x480, OXA *) = PoxaAllocSw(psw, pso); // pso->poxa
         RecalcSwOxfFilterForObject(psw, pso);
-        psw->cpsoRoot = psw->cpsoRoot + 1;
+        psw->cpsoRoot++;
         AppendDlEntry(&psw->dlRoot, pso);
     }
     OnAloAdd(pso);

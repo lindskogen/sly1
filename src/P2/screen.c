@@ -305,12 +305,9 @@ extern CFont *D_002743F0;
 
 void FUN_001ac888(BLOT *pblot)
 {
-    CFont *pfont;
-    void *pv;
-
     PostBlotLoad(pblot);
-    pfont = STRUCT_OFFSET(pblot, 0x4, CFont *);
-    pv = STRUCT_OFFSET(pfont, 0x4c, void *);
+    CFont *pfont = STRUCT_OFFSET(pblot, 0x4, CFont *);
+    void *pv = STRUCT_OFFSET(pfont, 0x4c, void *);
     STRUCT_OFFSET(pblot, 0x4, int) =
         (*(int (**)(void *, float, float))((uint8_t *)pv + 0xc))(
             (uint8_t *)pfont + STRUCT_OFFSET(pv, 0x8, short), 0.9f, 0.9f);
@@ -521,9 +518,9 @@ void FUN_001ae7f8(CTR *pctr, BLOTS blots)
 
 INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001ae820);
 
-INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea08);
+INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea08__Fv);
 
-INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea70);
+INCLUDE_ASM("asm/nonmatchings/P2/screen", FUN_001aea70__Fii);
 
 JUNK_WORD(0xE48C0000);
 JUNK_WORD(0xE48C0008);

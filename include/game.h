@@ -251,7 +251,7 @@ void StartupGame();
 
 // LevelLoadData * search_level_by_load_data(LevelLoadData *search_level);
 
-extern "C" LevelLoadData *search_level_by_id(int search_id);
+LevelLoadData *search_level_by_id(int search_id);
 
 /**
  * @brief Gets the friendly name of a level from its world ID.

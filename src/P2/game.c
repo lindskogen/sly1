@@ -36,7 +36,7 @@ JUNK_WORD(0x0000102D);
 
 INCLUDE_ASM("asm/nonmatchings/P2/game", search_level_by_load_data);
 
-INCLUDE_ASM("asm/nonmatchings/P2/game", search_level_by_id);
+INCLUDE_ASM("asm/nonmatchings/P2/game", search_level_by_id__Fi);
 
 INCLUDE_ASM("asm/nonmatchings/P2/game", PchzFriendlyFromWid__Fi);
 
@@ -51,7 +51,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/game", FFindLevel);
 
 JUNK_WORD(0x24420010);
 
-INCLUDE_ASM("asm/nonmatchings/P2/game", get_level_completion_by_id);
+INCLUDE_ASM("asm/nonmatchings/P2/game", get_level_completion_by_id__Fi);
 
 INCLUDE_ASM("asm/nonmatchings/P2/game", tally_world_completion);
 

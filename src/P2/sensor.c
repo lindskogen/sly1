@@ -4,17 +4,18 @@
 #include <alarm.h>
 #include <game.h>
 #include <freeze.h>
+#include <jt.h>
 
 void InitSensor(SENSOR *psensor)
 {
 	InitSo(psensor);
-	STRUCT_OFFSET(psensor, 0x558, SENSORS) = SENSORS_Nil;
+	psensor->sensors = SENSORS_Nil;
 	STRUCT_OFFSET(psensor, 0x554, int) = 0;
 }
 
 void SetSensorAlarm(SENSOR *psensor, ALARM *palarm)
 {
-	STRUCT_OFFSET(psensor, 0x550, ALARM *) = palarm; // psensor->palarm = palarm;
+	psensor->palarm = palarm;
 }
 
 INCLUDE_ASM("asm/nonmatchings/P2/sensor", SetSensorSensors__FP6SENSOR7SENSORS);
@@ -24,7 +25,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/sensor", SetSensorSensors__FP6SENSOR7SENSORS);
  */
 void SetSensorSensors(SENSOR *psensor, SENSORS sensors)
 {
-	SENSORS sensorsCur = STRUCT_OFFSET(psensor, 0x558, SENSORS); // sensorsCur = psensor->sensors;
+	SENSORS sensorsCur = psensor->sensors;
 
 	if (sensorsCur == sensors)
 	{
@@ -33,7 +34,7 @@ void SetSensorSensors(SENSOR *psensor, SENSORS sensors)
 
 	if (sensorsCur == SENSORS_SenseEnabled && sensors == SENSORS_SenseTriggered)
 	{
-		ALARM *palarm = STRUCT_OFFSET(psensor, 0x550, ALARM *);
+		ALARM *palarm = psensor->palarm;
 		if (palarm)
 		{
 			TriggerAlarm(palarm, ALTK_Trigger);
@@ -41,7 +42,7 @@ void SetSensorSensors(SENSOR *psensor, SENSORS sensors)
 
 		// Recheck current sensor state: if it's not SENSORS_SenseEnabled,
 		// override the current sensors with the new one.
-		sensorsCur = STRUCT_OFFSET(psensor, 0x558, SENSORS);
+		sensorsCur = psensor->sensors;
 		if (sensorsCur != SENSORS_SenseEnabled)
 		{
 			sensors = sensorsCur;
@@ -49,7 +50,7 @@ void SetSensorSensors(SENSOR *psensor, SENSORS sensors)
 	}
 
 	HandleLoSpliceEvent(psensor, 2, 0, NULL);
-	STRUCT_OFFSET(psensor, 0x558, SENSORS) = sensors; // psensor->sensors = sensors;
+	psensor->sensors = sensors;
 	STRUCT_OFFSET(psensor, 0x55C, float) = g_clock.t;
 }
 #endif
@@ -115,10 +116,10 @@ void InitLasen(LASEN *plasen)
     STRUCT_OFFSET(plasen, 0xB04, float) = 1.0f;
 }
 
+extern SNIP D_002744B8[2];
+
 void LoadLasenFromBrx(LASEN *plasen, CBinaryInputStream *pbis)
 {
-	extern SNIP D_002744B8[2];
-
 	LoadSoFromBrx(plasen, pbis);
 	SnipAloObjects(plasen, 2, D_002744B8);
 }
@@ -163,7 +164,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/sensor", FUN_001afaf8__FP6SENSORP2SO);
  */
 int FUN_001afaf8(SENSOR *psensor, SO *pso)
 {
-	extern void *g_pjt;
 	unsigned long long mask;
 	uint tmp2cc;
 

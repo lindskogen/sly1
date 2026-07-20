@@ -154,6 +154,7 @@ public:
     void Reset();
     void Update();
     void Close();
+    int FAccept(int cb, uchar *pb);
 };
 #endif // CMPEGAUDIO_DEFINED
 
@@ -226,7 +227,7 @@ int FMpegAcceptVideo(sceMpeg *pmp, sceMpegCbDataStr *pcbdata, CMpeg *pmpeg)
 
 int FMpegAcceptAudio(sceMpeg *pmp, sceMpegCbDataStr *pcbdata, CMpeg *pmpeg)
 {
-    return FAccept__10CMpegAudioiPUc((uint8_t *)pmpeg + 0x80, STRUCT_OFFSET(pcbdata, 0xC, int), STRUCT_OFFSET(pcbdata, 0x8, uchar *));
+    return ((CMpegAudio *)((uint8_t *)pmpeg + 0x80))->FAccept(STRUCT_OFFSET(pcbdata, 0xC, int), STRUCT_OFFSET(pcbdata, 0x8, uchar *));
 }
 
 INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FMpegDecodeVideo__FP7sceMpegP13sceMpegCbDataP5CMpeg);
@@ -248,7 +249,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/mpeg", BuildMpegGifs__FP2QWP11sceIpuRGB32iiiii)
 
 INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018ef78);
 
-INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018f0e8);
+INCLUDE_ASM("asm/nonmatchings/P2/mpeg", FUN_0018f0e8__FP5CMpegPv);
 
 void CMpeg::ExecuteOids()
 {

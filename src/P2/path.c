@@ -53,9 +53,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/path", LoadPathzoneFromBrx__FP8PATHZONEP18CBina
 
 INCLUDE_ASM("asm/nonmatchings/P2/path", HookupCg__FP2CG);
 
-struct PATHZONE;
-struct VECTOR;
-
 int CposFindPathzonePath(PATHZONE *ppathzone, VECTOR *pvec0, VECTOR *pvec1, int n, VECTOR *pvec2)
 {
     return CposFindPath((CG *)((char *)ppathzone + 0x34), pvec0, pvec1, n, pvec2);

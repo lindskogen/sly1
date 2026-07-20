@@ -255,6 +255,11 @@ void AddExploSkeleton(EXPLO *pexplo, OID oid, OID oidOther, float sRadius, float
 
 EMITB *PemitbEnsureExplo(EXPLO *pexplo, ENSK ensk);
 
+struct EXPLSOBLOB
+{
+    qword aqw[5];
+};
+
 void InitExpls(EXPLS *pexpls);
 
 void BindExpls(EXPLS *pexpls);

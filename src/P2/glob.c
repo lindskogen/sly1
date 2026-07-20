@@ -5,7 +5,6 @@
 
 void BuildGlobsetSaaArray(GLOBSET *pglobset)
 {
-
     void **psaa = (void **)PvAllocSwImpl(STRUCT_OFFSET(pglobset, 0x50, int) * 4);
     STRUCT_OFFSET(pglobset, 0x54, void **) = psaa;
 

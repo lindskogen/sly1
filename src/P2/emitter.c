@@ -507,11 +507,6 @@ void HandleExplsMessage(EXPLS *pexpls, MSGID msgid, void *pv)
     }
 }
 
-struct EXPLSOBLOB
-{
-    qword aqw[5];
-};
-
 void ExplodeExplsExplso(EXPLS *pexpls, EXPLSO *pexplso)
 {
     int fFired = 0;

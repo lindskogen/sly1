@@ -349,7 +349,6 @@ INCLUDE_ASM("asm/nonmatchings/P2/rip", ProjectLeafTransform__FP4LEAFf);
 
 int FBounceLeaf(LEAF *pleaf, SO *psoOther, VECTOR *ppos, VECTOR *pnormal)
 {
-
     if (FIsBasicDerivedFrom(STRUCT_OFFSET(psoOther, 0x50, BASIC *), CID_MISSILE))
         return 0;
     if (FIsBasicDerivedFrom(STRUCT_OFFSET(psoOther, 0x50, BASIC *), CID_STEP))

@@ -59,6 +59,11 @@ struct GIFS;
 
 int FBuildUploadBitmapGifs(GRFZON grfzon, GSB *pgsb, GIFS *pgifs);
 
+extern int g_cclutUpload;
+extern int g_cbmpUpload;
+extern int D_002626CC;
+extern GSB D_002626D8;
+
 void PropagateSurs();
 
 #endif // GS_H

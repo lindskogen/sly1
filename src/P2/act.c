@@ -9,6 +9,7 @@ ACT *PactNew(SW *psw, ALO *palo, VTACT *pvtact)
 {
     ACT *pact = (ACT *)PvAllocSlotheapClearImpl((SLOTHEAP *)((uint8_t *)psw + 0x1B20));
     pact->pvtact = pvtact;
+    // @todo Fix vtable call.
     (*(void (**)(ACT *, ALO *))pvtact)(pact, palo);
     return pact;
 }
@@ -18,6 +19,7 @@ extern VTACT g_vtact;
 ACT *PactNewClone(ACT *pactBase, SW *psw, ALO *palo)
 {
     ACT *pact = PactNew(psw, palo, &g_vtact);
+    // @todo Fix vtable call.
     (*(void (**)(ACT *, ACT *))((uint8_t *)pact->pvtact + 4))(pact, pactBase);
     return pact;
 }
@@ -52,6 +54,7 @@ void RetractAct(ACT *pact, GRFRA grfra)
 
     pactPos = STRUCT_OFFSET(palo, 0x1EC, ACT *);
     pactRot = STRUCT_OFFSET(palo, 0x1F0, ACT *);
+    // @todo Fix vtable call.
     (*(void (**)(ALO *))((char *)palo->pvtlo + 0xBC))(palo);
 
     if (pact == pactPos && STRUCT_OFFSET(palo, 0x1EC, int) == 0 && (grfra & 1))
@@ -60,6 +63,7 @@ void RetractAct(ACT *pact, GRFRA grfra)
         {
             ApplySoConstraintLocal((SO *)palo, (CONSTR *)((uint8_t *)palo + 0x440),
                                    (VECTOR *)((uint8_t *)palo + 0x150), &v, NULL);
+            // @todo Fix vtable call.
             (*(void (**)(ALO *, VECTOR *))((char *)palo->pvtlo + 0x90))(palo, &v);
         }
         else
@@ -74,6 +78,7 @@ void RetractAct(ACT *pact, GRFRA grfra)
         {
             ApplySoConstraintLocal((SO *)palo, (CONSTR *)((uint8_t *)palo + 0x460),
                                    (VECTOR *)((uint8_t *)palo + 0x160), &v, NULL);
+            // @todo Fix vtable call.
             (*(void (**)(ALO *, VECTOR *))((char *)palo->pvtlo + 0x94))(palo, &v);
         }
         else
@@ -99,9 +104,9 @@ extern char D_002483D0[];
 
 void GetActScale(ACT *pact, MATRIX3 *pmat)
 {
-    *(qword *)((char *)pmat + 0x0) = *(qword *)(D_002483D0 + 0x0);
-    *(qword *)((char *)pmat + 0x10) = *(qword *)(D_002483D0 + 0x10);
-    *(qword *)((char *)pmat + 0x20) = *(qword *)(D_002483D0 + 0x20);
+    STRUCT_OFFSET(pmat, 0x0, qword) = STRUCT_OFFSET(D_002483D0, 0x0, qword);
+    STRUCT_OFFSET(pmat, 0x10, qword) = STRUCT_OFFSET(D_002483D0, 0x10, qword);
+    STRUCT_OFFSET(pmat, 0x20, qword) = STRUCT_OFFSET(D_002483D0, 0x20, qword);
 }
 
 float GGetActPoseGoal(ACT *pact, int ipose)
@@ -121,6 +126,7 @@ void SnapAct(ACT *pact, int fForce)
     if (pact == STRUCT_OFFSET(palo, 0x1ec, ACT *) &&
         (fForce != 0 || STRUCT_OFFSET(pact, 0x10, char) == 2))
     {
+        // @todo Fix vtable calls.
         (*(void (**)(ACT *, float, VECTOR *, VECTOR *))((char *)pact->pvtact + 0x10))(pact, 0.0f, &pos, &v);
         (*(void (**)(ALO *, VECTOR *))((char *)palo->pvtlo + 0x84))(palo, &pos);
         (*(void (**)(ALO *, VECTOR *))((char *)palo->pvtlo + 0x90))(palo, &v);
@@ -128,6 +134,7 @@ void SnapAct(ACT *pact, int fForce)
     if (pact == STRUCT_OFFSET(palo, 0x1f0, ACT *) &&
         (fForce != 0 || STRUCT_OFFSET(pact, 0x11, char) == 2))
     {
+        // @todo Fix vtable calls.
         (*(void (**)(ACT *, float, MATRIX3 *, VECTOR *))((char *)pact->pvtact + 0x14))(pact, 0.0f, &mat, &pos);
         (*(void (**)(ALO *, MATRIX3 *))((char *)palo->pvtlo + 0x88))(palo, &mat);
         (*(void (**)(ALO *, VECTOR *))((char *)palo->pvtlo + 0x94))(palo, &pos);
@@ -148,6 +155,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/act", ProjectActPose__FP3ACTi);
 #ifdef SKIP_ASM
 void ProjectActPose(ACT *pact, int ipose)
 {
+    // @todo Fix vtable call.
     float g = (*(float (**)(ACT *))((char *)pact->pvtact + 0x20))(pact);
     signed char actk = STRUCT_OFFSET(pact, 0x13, signed char);
 
@@ -214,9 +222,9 @@ void GetActvalTwistGoal(ACTVAL *pactval, float *pradTwist, float *pdradTwist)
 
 void GetActvalScale(ACTVAL *pactval, MATRIX3 *pmat)
 {
-    *(qword *)((uint8_t *)pmat + 0x0) = *(qword *)((uint8_t *)pactval + 0x90);
-    *(qword *)((uint8_t *)pmat + 0x10) = *(qword *)((uint8_t *)pactval + 0xA0);
-    *(qword *)((uint8_t *)pmat + 0x20) = *(qword *)((uint8_t *)pactval + 0xB0);
+    STRUCT_OFFSET(pmat, 0x0, qword) = STRUCT_OFFSET(pactval, 0x90, qword);
+    STRUCT_OFFSET(pmat, 0x10, qword) = STRUCT_OFFSET(pactval, 0xA0, qword);
+    STRUCT_OFFSET(pmat, 0x20, qword) = STRUCT_OFFSET(pactval, 0xB0, qword);
 }
 
 float GGetActvalPoseGoal(ACTVAL *pactval, int ipose)
@@ -247,6 +255,7 @@ void GetActrefPositionGoal(ACTREF *pactref, float dtOffset, VECTOR *ppos, VECTOR
     *(qword *)ppos = *(qword *)STRUCT_OFFSET(pactref, 0x1c, uint8_t *);
     *(qword *)pv = *(qword *)STRUCT_OFFSET(pactref, 0x20, uint8_t *);
     ALO *palo = pactref->palo;
+    // @todo Fix vtable call.
     void (*pfn)(ALO *) = (void (*)(ALO *))STRUCT_OFFSET(STRUCT_OFFSET(palo, 0x0, void *), 0xB0, void *);
     if (pfn)
         pfn(palo);
@@ -263,9 +272,9 @@ void GetActrefTwistGoal(ACTREF *pactref, float *pradTwist, float *pdradTwist)
 void GetActrefScale(ACTREF *pactref, MATRIX3 *pmat)
 {
     uint8_t *psrc = STRUCT_OFFSET(pactref, 0x34, uint8_t *);
-    *(qword *)((uint8_t *)pmat + 0x0) = *(qword *)(psrc + 0x0);
-    *(qword *)((uint8_t *)pmat + 0x10) = *(qword *)(psrc + 0x10);
-    *(qword *)((uint8_t *)pmat + 0x20) = *(qword *)(psrc + 0x20);
+    STRUCT_OFFSET(pmat, 0x0, qword) = STRUCT_OFFSET(psrc, 0x0, qword);
+    STRUCT_OFFSET(pmat, 0x10, qword) = STRUCT_OFFSET(psrc, 0x10, qword);
+    STRUCT_OFFSET(pmat, 0x20, qword) = STRUCT_OFFSET(psrc, 0x20, qword);
 }
 
 float GGetActrefPoseGoal(ACTREF *pactref, int ipose)
