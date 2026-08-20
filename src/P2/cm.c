@@ -5,11 +5,6 @@
 #include <util.h>
 #include <binoc.h>
 #include <cplcy.h>
-#include <frm.h>
-#include <vifs.h>
-#include <math.h>
-#include <sw.h>
-#include <vis.h>
 
 // todo fix data and rodata
 // VECTOR4 g_posEyeDefault = { 0.0f, -2000.0f, 500.0f, 0.0f };
@@ -208,21 +203,7 @@ INCLUDE_ASM("asm/nonmatchings/P2/cm", ConvertCmScreenToWorld);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", ConvertCmWorldToScreen);
 
-void SetupCm(CM *pcm)
-{
-    VECTOR4 vTmp;
-    GRFZON grfzon;
-
-    SetupCmRotateToCam(pcm);
-
-    if (g_psw != NULL)
-    {
-        STRUCT_OFFSET(&vTmp, 0, qword) = STRUCT_OFFSET(pcm, 0x40, qword);
-        ClipVismapPointNoHop(g_psw->pvismap, (VECTOR *)&vTmp, &grfzon);
-        if (grfzon != 0)
-            pcm->field39_0x21c = grfzon;
-    }
-}
+INCLUDE_ASM("asm/nonmatchings/P2/cm", SetupCm__FP2CM);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", CombineEyeLookAtProj);
 
@@ -230,58 +211,21 @@ INCLUDE_ASM("asm/nonmatchings/P2/cm", BuildFrustrum);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", UpdateCmMat4);
 
-void DrawCm(CM *pcm)
-{
-    g_vifs.AddDmaCnt();
-    g_vifs.AddVifBaseOffset(0, 0);
-    g_vifs.AddVifUnpack(UPK_V4_32, 4, (uint8_t *)pcm + 0x100, 4);
-    g_vifs.AddVifUnpack(UPK_V4_32, 4, (uint8_t *)pcm + 0x140, 8);
-    g_vifs.EndDmaCnt();
-}
+INCLUDE_ASM("asm/nonmatchings/P2/cm", DrawCm__FP2CM);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", SetCmPosMat__FP2CMP6VECTORP7MATRIX3);
 
-void SetCmLookAt(CM *pcm, VECTOR *pposEye, VECTOR *pposCenter)
-{
-    SetCmLookAtSmooth(pcm, 0, pposEye, pposCenter, 0, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-}
+INCLUDE_ASM("asm/nonmatchings/P2/cm", SetCmLookAt__FP2CMP6VECTORT1);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", ConvertWorldToCylindVelocity__FPvN50);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", ConvertCylindToWorldVelocity__FPvN20fff);
 
-void ResetCmLookAtSmooth(CM *pcm, void *pv)
-{
-    VECTOR4 vTmp;
-
-    ConvertCylindToWorldVelocity(&STRUCT_OFFSET(pcm, 0x2d0, int), &STRUCT_OFFSET(pcm, 0x40, int), &vTmp,
-        STRUCT_OFFSET(pcm, 0x2b0, float), STRUCT_OFFSET(pcm, 0x2b4, float), STRUCT_OFFSET(pcm, 0x2b8, float));
-    ConvertWorldToCylindVelocity(pv, &STRUCT_OFFSET(pcm, 0x40, int), &vTmp,
-        &STRUCT_OFFSET(pcm, 0x2b0, int), &STRUCT_OFFSET(pcm, 0x2b4, int), &STRUCT_OFFSET(pcm, 0x2b8, int));
-    STRUCT_OFFSET(pcm, 0x2d0, qword) = *(qword *)pv;
-}
+INCLUDE_ASM("asm/nonmatchings/P2/cm", ResetCmLookAtSmooth__FP2CMPv);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", SetCmLookAtSmooth__FP2CMiP6VECTORT2iffffff);
 
-void AdjustCmJoy(CM *pcm, JOY *pjoy, JOYID joyid, float *prad)
-{
-    float rad;
-
-    switch (joyid)
-    {
-    case JOYID_Left:
-        rad = atan2f(-pjoy->x, pjoy->y);
-        break;
-    case JOYID_Right:
-        rad = atan2f(-pjoy->x2, pjoy->y2);
-        break;
-    default:
-        rad = 0.0f;
-        break;
-    }
-
-    *prad = RadNormalize(rad + atan2f(STRUCT_OFFSET(pcm, 0x84, float), STRUCT_OFFSET(pcm, 0x80, float)));
-}
+INCLUDE_ASM("asm/nonmatchings/P2/cm", AdjustCmJoy__FP2CMP3JOY5JOYIDPf);
 
 JUNK_WORD(0x0000102D);
 
@@ -325,10 +269,14 @@ INCLUDE_ASM("asm/nonmatchings/P2/cm", FUN_00145950);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", FUN_00145b68);
 
-bool FUN_00145DD8(undefined4 unused, CM *pcm)
+INCLUDE_ASM("asm/nonmatchings/P2/cm", FUN_00145DD8__FUiP2CM);
+#ifdef SKIP_ASM
+bool FUN_00145DD8(CM *pcm)
 {
-    return STRUCT_OFFSET(pcm, 0x538, int) != 0;
+    return pcm->cptn.tMoveLast != 0; //If tMoveLast is a int/undefined4 it matches only it uses a0 instead of a1 :/
 }
+#endif
+
 INCLUDE_ASM("asm/nonmatchings/P2/cm", FUN_00145de8);
 
 INCLUDE_ASM("asm/nonmatchings/P2/cm", FUN_00145e68);
